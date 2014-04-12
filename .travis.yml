@@ -9,11 +9,11 @@ compiler:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install wine wget p7zip-full
-  - wget http://go.microsoft.com/fwlink/?linkid=57035 -O VCS.iso
-  - mkdir /tmp/vcs
-  - 7z x VCS.iso -o/tmp/vcs
-  - wine /tmp/vcs/Ixpvcs.exe /q:a /t:c:\tmp /c
-  - cp -r /tmp/vcs/* ~/.wine/drive_c/tmp/tmp
+  - wget http://go.microsoft.com/fwlink/?linkid=57034 -O VC.iso
+  - mkdir /tmp/vc
+  - 7z x VC.iso -o/tmp/vc
+  - wine /tmp/vc/Ixpvc.exe /q:a /t:c:\tmp /c
+  - cp -r /tmp/vc/* ~/.wine/drive_c/tmp/tmp
   - find ~/.wine/drive_c/tmp/tmp
   - wine msiexec /i ~/.wine/drive_c/tmp/tmp/vcsetup.msi  VSEXTUI=0 ADDLOCAL=ALL REBOOT=ReallySuppress /qn
   - wget http://download.microsoft.com/download/7/5/e/75ec7f04-4c8c-4f38-b582-966e76602643/5.2.3790.1830.15.PlatformSDK_Svr2003SP1_rtm.img
