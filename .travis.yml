@@ -8,17 +8,17 @@ compiler:
 
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install wine wget
+  - sudo apt-get install wine wget p7zip-full
   - wget http://go.microsoft.com/fwlink/?linkid=57035 -O VCS.iso
   - wget http://download.microsoft.com/download/7/5/e/75ec7f04-4c8c-4f38-b582-966e76602643/5.2.3790.1830.15.PlatformSDK_Svr2003SP1_rtm.img
   - mkdir /tmp/vcs
-  - sudo mount -t auto VCS.iso /tmp/vcs -o loop
-  - wine /tmp/vcs/ixpvc.exe /q:a /t:c:\tmp /c
+  - 7z x VCS.iso -o/tmp/vcs
+  - wine /tmp/vcs/Ixpvc.exe /q:a /t:c:\tmp /c
   - cp /tmp/vcs/* ~/.wine/drive_c/tmp/tmp
   - wine msiexec /i ~/.wine.tmp/drive_c/tmp/tmp/vcsetup.msi  VSEXTUI=0 ADDLOCAL=ALL REBOOT=ReallySuppress /qn
   - mkdir /tmp/psdk
-  - sudo mount -t auto 5.2.3790.1830.15.PlatformSDK_Svr2003SP1_rtm.img /tmp/psdk -o loop
-  - wine msiexec /i /tmp/psdk/setup/psdk-x86.msi
+  - 7z x 5.2.3790.1830.15.PlatformSDK_Svr2003SP1_rtm.img -o/tmp/psdk
+  - wine msiexec /i /tmp/psdk/Setup/PSDK-x86.msi
   - find ~/.wine/drive_c
 
 install:
