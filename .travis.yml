@@ -7,6 +7,7 @@ compiler:
   - gcc
 
 before_install:
+  - sudo add-apt-repository -y ppa:ubuntu-wine/ppa
   - sudo apt-get update -qq
   - sudo apt-get install wine wget p7zip-full
   - wget http://go.microsoft.com/fwlink/?linkid=57034 -O VC.iso
