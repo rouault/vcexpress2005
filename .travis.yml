@@ -38,7 +38,7 @@ before_install:
   - cp build.bat /tmp
   - cp build.patch /tmp
   - cd ~/.wine/drive_c/gdal/gdal
-  - patch -p0 < build.patch
+  - patch -p0 < /tmp/build.patch
 
 install:
   - wine cmd /c /tmp/build.bat
