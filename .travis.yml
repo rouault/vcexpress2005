@@ -46,6 +46,7 @@ install:
   - wine cmd /c /tmp/build.bat
 
 script:
+  - echo "yes"
 
 notifications:
 #  email:
