@@ -27,6 +27,7 @@ before_install:
   - wget http://download.microsoft.com/download/a/5/f/a5f0d781-e201-4ab6-8c6a-9bb4efed1e1a/PSDK-SDK_Core_BLD_X86-common.0.cab
   - wget http://download.microsoft.com/download/a/5/f/a5f0d781-e201-4ab6-8c6a-9bb4efed1e1a/PSDK-SDK_Core_BIN-x86.0.cab
   - wget http://download.microsoft.com/download/a/5/f/a5f0d781-e201-4ab6-8c6a-9bb4efed1e1a/PSDK-SDK_MDAC_BLD_X86-common.0.cab
+  - wget http://download.microsoft.com/download/a/5/f/a5f0d781-e201-4ab6-8c6a-9bb4efed1e1a/PSDK-SDK_MDAC_BLD-common.0.cab
   - mkdir tmp
   - cabextract -dtmp *.cab
   - for i in tmp/*; do mv $i `echo $i | sed "s/\(.*\)\..*/\1/" | sed "s/\(.*\)_\(.*\)/\1\.\2/"`; done
