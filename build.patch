@@ -1,0 +1,72 @@
+Index: makefile.vc
+===================================================================
+--- makefile.vc	(révision 27180)
++++ makefile.vc	(copie de travail)
+@@ -5,8 +5,8 @@
+ ##############################################################################
+ # We need to add vb6 support if STDCALL is defined. 
+ !IF DEFINED(STDCALL) && $(MSVC_VER) < 1500
+-VB6_OBJ = vb6\vb6_support.obj
+-VB6_TARGET = vb6_dir
++#VB6_OBJ = vb6\vb6_support.obj
++#VB6_TARGET = vb6_dir
+ !ENDIF
+ 
+ ##############################################################################
+@@ -40,7 +40,7 @@
+ !IF DEFINED(STDCALL) && !DEFINED(WIN64)
+ 
+ !IF $(MSVC_VER) < 1500
+-VB6_SAFEARRAYSYM =	/INCLUDE:_vbSafeArrayToPtr@16
++#VB6_SAFEARRAYSYM =	/INCLUDE:_vbSafeArrayToPtr@16
+ !ENDIF
+ 
+ BASE_INCLUDE =	/INCLUDE:_GDALSimpleImageWarp@36 \
+Index: ogr/ogrsf_frmts/makefile.vc
+===================================================================
+--- ogr/ogrsf_frmts/makefile.vc	(révision 27180)
++++ ogr/ogrsf_frmts/makefile.vc	(copie de travail)
+@@ -219,8 +219,7 @@
+ 	for %d in ( $(DIRLIST) ) do \
+ 		cd %d \
+ 		&& $(MAKE) /f makefile.vc \
+-		&& cd .. \
+-		|| exit 1
++		&& cd ..
+ 
+ 	lib /out:ogrsf_frmts.lib generic\*.obj shape\*.obj ntf\*.obj \
+ 				 sdts\*.obj s57\*.obj tiger\*.obj gml\*.obj \
+@@ -256,11 +255,13 @@
+ 
+ plugindirs:
+ 	@echo plugins: $(PLUGINDIRLIST)
++
++aplugindirs:
++	@echo plugins: $(PLUGINDIRLIST)
+         -for %d in ( $(PLUGINDIRLIST) ) do \
+                 cd %d \
+                 && $(MAKE) /f makefile.vc plugin \
+-                && cd .. \
+-                || exit 1
++                && cd .. 
+ 
+ clean:
+ 	-del ogrsf_frmts.lib
+Index: frmts/makefile.vc
+===================================================================
+--- frmts/makefile.vc	(révision 27180)
++++ frmts/makefile.vc	(copie de travail)
+@@ -174,10 +174,11 @@
+ 	for %d in ( $(DIRLIST) ) do \
+ 		cd %d \
+ 		&& $(MAKE) /f makefile.vc \
+-		&& cd .. \
+-		|| exit 1
++		&& cd ..
+ 
+ plugindirs:
++	@echo plugins: $(PLUGINDIRLIST)
++aplugindirs:
+ 	-for %d in ( $(PLUGINDIRLIST) ) do \
+ 		cd %d \
+ 		&& $(MAKE) /f makefile.vc plugin \

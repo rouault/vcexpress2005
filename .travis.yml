@@ -9,7 +9,7 @@ compiler:
 before_install:
   - sudo add-apt-repository -y ppa:ubuntu-wine/ppa
   - sudo apt-get update -qq
-  - sudo apt-get install wine wget p7zip-full
+  - sudo apt-get install wine wget p7zip-full cabextract
   - wget http://go.microsoft.com/fwlink/?linkid=57034 -O VC.iso
   - mkdir /tmp/vc
   - 7z x VC.iso -o/tmp/vc
@@ -17,13 +17,31 @@ before_install:
   - cp -r /tmp/vc/* ~/.wine/drive_c/tmp/tmp
   - find ~/.wine/drive_c/tmp/tmp
   - wine msiexec /i ~/.wine/drive_c/tmp/tmp/vcsetup.msi  VSEXTUI=0 ADDLOCAL=ALL REBOOT=ReallySuppress /qn
-  - wget http://download.microsoft.com/download/7/5/e/75ec7f04-4c8c-4f38-b582-966e76602643/5.2.3790.1830.15.PlatformSDK_Svr2003SP1_rtm.img
-  - mkdir /tmp/psdk
-  - 7z x 5.2.3790.1830.15.PlatformSDK_Svr2003SP1_rtm.img -o/tmp/psdk
-  - wine msiexec /i /tmp/psdk/Setup/PSDK-x86.msi
+#  - wget http://download.microsoft.com/download/7/5/e/75ec7f04-4c8c-4f38-b582-966e76602643/5.2.3790.1830.15.PlatformSDK_Svr2003SP1_rtm.img
+#  - mkdir /tmp/psdk
+#  - 7z x 5.2.3790.1830.15.PlatformSDK_Svr2003SP1_rtm.img -o/tmp/psdk
+#  - wine msiexec /i /tmp/psdk/Setup/PSDK-x86.msi
+  - wget http://download.microsoft.com/download/a/5/f/a5f0d781-e201-4ab6-8c6a-9bb4efed1e1a/PSDK-SDK_Core_BLD-common.0.cab
+  - wget http://download.microsoft.com/download/a/5/f/a5f0d781-e201-4ab6-8c6a-9bb4efed1e1a/PSDK-SDK_Core_BLD-common.1.cab
+  - wget http://download.microsoft.com/download/a/5/f/a5f0d781-e201-4ab6-8c6a-9bb4efed1e1a/PSDK-SDK_Core_BLD-common.2.cab
+  - wget http://download.microsoft.com/download/a/5/f/a5f0d781-e201-4ab6-8c6a-9bb4efed1e1a/PSDK-SDK_Core_BLD_X86-common.0.cab
+  - wget http://download.microsoft.com/download/a/5/f/a5f0d781-e201-4ab6-8c6a-9bb4efed1e1a/PSDK-SDK_Core_BIN-x86.0.cab
+  - wget http://download.microsoft.com/download/a/5/f/a5f0d781-e201-4ab6-8c6a-9bb4efed1e1a/PSDK-SDK_MDAC_BLD_X86-common.0.cab
+  - mkdir tmp
+  - cabextract -dtmp *.cab
+  - for i in tmp/*; do mv $i `echo $i | sed "s/\(.*\)\..*/\1/" | sed "s/\(.*\)_\(.*\)/\1\.\2/"`; done
+  - mkdir ~/.wine/drive_c/psdk
+  - mv tmp/* ~/.wine/drive_c/psdk
   - find ~/.wine/drive_c
+  - git clone --depth=50 --branch=trunk git://github.com/rouault/gdal.git gdal
+  - mv gdal ~/.wine/drive_c
+  - cp build.bat /tmp
+  - cp build.patch /tmp
+  - cd ~/.wine/drive_c/gdal/gdal
+  - patch -p0 < build.patch
 
 install:
+  - wine cmd /c /tmp/build.bat
 
 script:
 
