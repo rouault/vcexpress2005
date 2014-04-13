@@ -32,7 +32,7 @@ before_install:
   - for i in tmp/*; do mv $i `echo $i | sed "s/\(.*\)\..*/\1/" | sed "s/\(.*\)_\(.*\)/\1\.\2/"`; done
   - mkdir ~/.wine/drive_c/psdk
   - mv tmp/* ~/.wine/drive_c/psdk
-  - find ~/.wine/drive_c
+#  - find ~/.wine/drive_c
   - git clone --depth=50 --branch=trunk git://github.com/rouault/gdal.git gdal
   - mv gdal ~/.wine/drive_c
   - cp build.bat /tmp
